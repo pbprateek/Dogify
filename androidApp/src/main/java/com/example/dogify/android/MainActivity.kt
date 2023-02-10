@@ -1,20 +1,40 @@
 package com.example.dogify.android
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.example.dogify.Greeting
-import android.widget.TextView
+import androidx.activity.compose.setContent
+import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material.MaterialTheme
+import androidx.compose.runtime.collectAsState
+import androidx.compose.ui.Modifier
+import com.example.dogify.android.ui.MainScreen
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
-fun greet(): String {
-    return Greeting().greeting()
-}
 
 class MainActivity : AppCompatActivity() {
+
+    private val mainViewModel by viewModel<MainViewModel>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContent {
+            val uiState = mainViewModel.state.collectAsState().value
+            MaterialTheme() {
+                MainScreen(
+                    modifier = Modifier.fillMaxSize(),
+                    breeds = uiState.breeds,
+                    filterApplied = uiState.shouldFilterFavourite,
+                    applyFilter = {
 
-        val tv: TextView = findViewById(R.id.text_view)
-        tv.text = greet()
+                    },
+                    setFavourite = {
+
+                    }
+                )
+            }
+        }
+
     }
 }
+
+
+
