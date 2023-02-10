@@ -20,30 +20,14 @@ class MainViewModel(
     private val _state = MutableStateFlow(DogifyState())
     val state: StateFlow<DogifyState> = _state
 
+    private var breedsCache = emptyList<Breed>()
+
 
     init {
         loadData()
-    }
-
-    fun toggleFilterFavourite() {
-        _state.value =
-            _state.value.copy(shouldFilterFavourite = !_state.value.shouldFilterFavourite)
-        loadData()
-    }
-
-
-    private fun loadData() {
-        _state.value = _state.value.copy(state = State.LOADING)
-        viewModelScope.launch {
-            try {
-                fetchBreedsUseCase.invoke()
-            }catch (ex:UnknownHostException){
-                //No Internet
-            }
-
-        }
         viewModelScope.launch {
             getBreedsUseCase.invoke().collect {
+                breedsCache = it
                 it.filter { breed ->
                     if (state.value.shouldFilterFavourite)
                         breed.isFavourite
@@ -55,6 +39,28 @@ class MainViewModel(
                         state = if (it.isEmpty()) State.EMPTY else State.NORMAL
                     )
                 }
+            }
+        }
+    }
+
+    fun toggleFilterFavourite() {
+        _state.value =
+            _state.value.copy(shouldFilterFavourite = !_state.value.shouldFilterFavourite, breeds = breedsCache.filter { breed ->
+                if (!state.value.shouldFilterFavourite)
+                    breed.isFavourite
+                else
+                    true
+            })
+    }
+
+
+    private fun loadData() {
+        _state.value = _state.value.copy(state = State.LOADING)
+        viewModelScope.launch {
+            try {
+                fetchBreedsUseCase.invoke()
+            } catch (ex: UnknownHostException) {
+                //No Internet
             }
         }
     }

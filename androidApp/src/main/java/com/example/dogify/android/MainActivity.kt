@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity() {
                     breeds = uiState.breeds,
                     filterApplied = uiState.shouldFilterFavourite,
                     applyFilter = {
-
+                        mainViewModel.toggleFilterFavourite()
                     },
                     setFavourite = { name, isFav ->
                         mainViewModel.toggleBreedFavourite(name, isFav)

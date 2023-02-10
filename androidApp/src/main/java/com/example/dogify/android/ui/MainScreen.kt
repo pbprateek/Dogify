@@ -3,15 +3,15 @@ package com.example.dogify.android.ui
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.Card
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.capitalize
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -32,11 +32,36 @@ fun MainScreen(
     applyFilter: () -> Unit,
     setFavourite: (name: String, isFavourite: Boolean) -> Unit
 ) {
-    LazyColumn() {
-        items(breeds) {
-            BreedItem(breed = it, setFavourite = setFavourite)
+    Column(modifier = modifier) {
+        TopAppBar() {
+            Box(
+                modifier = Modifier.fillMaxSize()
+            ) {
+                Switch(modifier = Modifier.align(Alignment.CenterEnd), checked = filterApplied, onCheckedChange = {
+                    applyFilter()
+                })
+
+                Text(
+                    modifier = Modifier.align(Alignment.Center),
+                    text = "Doggos",
+                    style = MaterialTheme.typography.h4
+                )
+            }
+
+        }
+
+        LazyColumn(
+            modifier = modifier
+                .fillMaxHeight()
+                .weight(1f)
+        ) {
+            items(breeds) {
+                BreedItem(breed = it, setFavourite = setFavourite)
+            }
         }
     }
+
+
 }
 
 @Composable
@@ -63,9 +88,8 @@ fun BreedItem(modifier: Modifier = Modifier, breed: Breed, setFavourite: (name: 
                         .weight(1f),
                     fontStyle = FontStyle.Italic
                 )
-                IconButton(onClick = {
-                    setFavourite(breed.name, !breed.isFavourite)
-                }) {
+
+                IconToggleButton(checked = breed.isFavourite, onCheckedChange = { setFavourite(breed.name, !breed.isFavourite) }) {
                     Icon(painter = painterResource(id = if (breed.isFavourite) R.drawable.baseline_thumb_up_24 else R.drawable.baseline_thumb_up_off_alt_24), contentDescription = null)
                 }
             }
