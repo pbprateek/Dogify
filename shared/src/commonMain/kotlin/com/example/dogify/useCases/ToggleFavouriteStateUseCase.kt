@@ -9,7 +9,7 @@ class ToggleFavouriteStateUseCase : KoinComponent {
 
     private val breedRepository: BreedRepository by inject()
 
-    suspend operator fun invoke(breed: Breed) {
-        breedRepository.update(breed.copy(isFavourite = !breed.isFavourite))
+    suspend operator fun invoke(name: String, isFavourite: Boolean) {
+        breedRepository.update(name, isFavourite)
     }
 }

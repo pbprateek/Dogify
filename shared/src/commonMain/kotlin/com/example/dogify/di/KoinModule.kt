@@ -5,6 +5,7 @@ import com.example.dogify.db.RealmDb
 import com.example.dogify.repo.BreedLocalSource
 import com.example.dogify.repo.BreedRemoteSource
 import com.example.dogify.repo.BreedRepository
+import com.example.dogify.useCases.FetchBreedsUseCase
 import com.example.dogify.useCases.GetBreedsUseCase
 import com.example.dogify.useCases.ToggleFavouriteStateUseCase
 import com.example.dogify.util.getDispatcherProvider
@@ -17,6 +18,7 @@ class KoinModule {
 
 private val useCaseModule = module {
     factory { GetBreedsUseCase() }
+    factory { FetchBreedsUseCase() }
     factory { ToggleFavouriteStateUseCase() }
 }
 
