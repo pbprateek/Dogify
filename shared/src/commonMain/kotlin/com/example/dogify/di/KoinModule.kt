@@ -8,12 +8,14 @@ import com.example.dogify.repo.BreedRepository
 import com.example.dogify.useCases.FetchBreedsUseCase
 import com.example.dogify.useCases.GetBreedsUseCase
 import com.example.dogify.useCases.ToggleFavouriteStateUseCase
-import com.example.dogify.util.getDispatcherProvider
+import com.example.dogify.util.DispatcherProvider
+import com.example.dogify.util.DispatcherProviderImpl
 import org.koin.core.context.startKoin
 import org.koin.dsl.KoinAppDeclaration
 import org.koin.dsl.module
 
 class KoinModule {
+
 }
 
 private val useCaseModule = module {
@@ -32,7 +34,7 @@ private val realm = module {
 }
 
 private val utilityModule = module {
-    factory { getDispatcherProvider() }
+    factory<DispatcherProvider> { DispatcherProviderImpl() }
 }
 
 private val repositoryModule = module {

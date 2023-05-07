@@ -2,7 +2,7 @@ plugins {
     kotlin("multiplatform")
     id("com.android.library")
     kotlin("plugin.serialization") version "1.6.10"
-    id("io.realm.kotlin")
+    id("io.realm.kotlin") version "1.8.0"
 }
 
 kotlin {
@@ -20,11 +20,13 @@ kotlin {
 
     sourceSets {
 
-        val ktorVersion = "2.2.3"
-        val koin_version= "3.3.3"
+        val ktorVersion = "2.3.0"
+        val koin_version= "3.4.0"
 
         val commonMain by getting {
             dependencies {
+
+
                 //Check api vs impl and u will get bcz we need koin setup in other module as well like android
                 api("io.insert-koin:koin-core:$koin_version")
                 //kotr
@@ -33,11 +35,11 @@ kotlin {
                 implementation("io.ktor:ktor-client-logging:$ktorVersion")
                 implementation("io.ktor:ktor-serialization-kotlinx-json:$ktorVersion")
                 //Searalization
-                implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:1.4.1")
+                implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:1.5.0")
                 //Coroutine
-                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.0")
                 //relm
-                implementation("io.realm.kotlin:library-base:1.6.1")
+                implementation("io.realm.kotlin:library-base:1.8.0")
             }
         }
         val commonTest by getting {
@@ -45,12 +47,23 @@ kotlin {
                 implementation(kotlin("test"))
             }
         }
+
+
+
+        //Android
         val androidMain by getting {
             dependencies {
                 implementation("io.ktor:ktor-client-okhttp:$ktorVersion")
             }
         }
-        val androidTest by getting
+        val androidTest by getting{
+            dependsOn(commonTest)
+        }
+
+
+
+
+        //Ios
         val iosX64Main by getting
         val iosArm64Main by getting
         val iosSimulatorArm64Main by getting
@@ -72,6 +85,8 @@ kotlin {
             iosArm64Test.dependsOn(this)
             iosSimulatorArm64Test.dependsOn(this)
         }
+
+
     }
 }
 
