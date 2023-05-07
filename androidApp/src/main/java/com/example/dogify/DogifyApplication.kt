@@ -1,7 +1,8 @@
-package com.example.dogify.android
+package com.example.dogify
 
 import android.app.Application
 import com.example.dogify.di.initKoin
+import com.example.dogify.viewModelModules
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 

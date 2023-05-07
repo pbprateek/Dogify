@@ -1,4 +1,4 @@
-package com.example.dogify.android.ui
+package com.example.dogify.ui
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -14,7 +14,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import com.example.dogify.android.R
+import com.example.dogify.R
 import com.example.dogify.model.Breed
 import java.util.*
 

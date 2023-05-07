@@ -1,4 +1,4 @@
-package com.example.dogify.android
+package com.example.dogify
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

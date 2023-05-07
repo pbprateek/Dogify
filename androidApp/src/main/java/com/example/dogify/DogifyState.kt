@@ -1,4 +1,4 @@
-package com.example.dogify.android
+package com.example.dogify
 
 import com.example.dogify.model.Breed
 

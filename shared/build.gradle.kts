@@ -1,5 +1,6 @@
 plugins {
     kotlin("multiplatform")
+    id("org.jetbrains.compose") version "1.4.0"
     id("com.android.library")
     kotlin("plugin.serialization") version "1.6.10"
     id("io.realm.kotlin") version "1.8.0"
@@ -7,6 +8,10 @@ plugins {
 
 kotlin {
     android()
+
+    jvm("desktop") {
+        jvmToolchain(11)
+    }
 
     listOf(
         iosX64(),
@@ -26,6 +31,9 @@ kotlin {
         val commonMain by getting {
             dependencies {
 
+                api(compose.runtime)
+                api(compose.foundation)
+                api(compose.material)
 
                 //Check api vs impl and u will get bcz we need koin setup in other module as well like android
                 api("io.insert-koin:koin-core:$koin_version")
@@ -58,6 +66,14 @@ kotlin {
         }
         val androidTest by getting{
             dependsOn(commonTest)
+        }
+
+
+        //Desktop
+        val desktopMain by getting {
+            dependencies {
+                api(compose.preview)
+            }
         }
 
 
@@ -96,5 +112,10 @@ android {
     defaultConfig {
         minSdk = 21
         targetSdk = 33
+    }
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
     }
 }
