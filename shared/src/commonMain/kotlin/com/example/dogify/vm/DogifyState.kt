@@ -1,4 +1,4 @@
-package com.example.dogify
+package com.example.dogify.vm
 
 import com.example.dogify.model.Breed
 

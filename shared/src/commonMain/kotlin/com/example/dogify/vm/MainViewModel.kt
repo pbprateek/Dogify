@@ -1,31 +1,31 @@
-package com.example.dogify
+package com.example.dogify.vm
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.example.dogify.model.Breed
 import com.example.dogify.useCases.FetchBreedsUseCase
 import com.example.dogify.useCases.GetBreedsUseCase
 import com.example.dogify.useCases.ToggleFavouriteStateUseCase
+import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import java.net.UnknownHostException
 
-class MainViewModel(
+internal class MainViewModel(
     private val getBreedsUseCase: GetBreedsUseCase,
     private val fetchBreedsUseCase: FetchBreedsUseCase,
     private val onToggleFavouriteStateUseCase: ToggleFavouriteStateUseCase
-) : ViewModel() {
+) {
 
     private val _state = MutableStateFlow(DogifyState())
     val state: StateFlow<DogifyState> = _state
 
     private var breedsCache = emptyList<Breed>()
+    
+    private val scope = MainScope()
 
 
     init {
         loadData()
-        viewModelScope.launch {
+        scope.launch {
             getBreedsUseCase.invoke().collect {
                 breedsCache = it
                 it.filter { breed ->
@@ -56,17 +56,17 @@ class MainViewModel(
 
     private fun loadData() {
         _state.value = _state.value.copy(state = State.LOADING)
-        viewModelScope.launch {
+        scope.launch {
             try {
                 fetchBreedsUseCase.invoke()
-            } catch (ex: UnknownHostException) {
+            } catch (ex: Exception) {
                 //No Internet
             }
         }
     }
 
     fun toggleBreedFavourite(name: String, isFavourite: Boolean) {
-        viewModelScope.launch {
+        scope.launch {
             onToggleFavouriteStateUseCase.invoke(name, isFavourite)
         }
 

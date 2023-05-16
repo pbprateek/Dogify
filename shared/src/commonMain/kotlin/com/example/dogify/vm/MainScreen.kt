@@ -1,5 +1,7 @@
-package com.example.dogify.ui
+package com.example.dogify.vm
 
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -7,16 +9,14 @@ import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import coil.compose.AsyncImage
-import com.example.dogify.R
 import com.example.dogify.model.Breed
-import java.util.*
+import org.jetbrains.compose.resources.ExperimentalResourceApi
+import org.jetbrains.compose.resources.painterResource
 
 
 @Composable
@@ -59,23 +59,27 @@ fun MainScreen(
 
 }
 
+@OptIn(ExperimentalResourceApi::class)
 @Composable
 fun BreedItem(modifier: Modifier = Modifier, breed: Breed, setFavourite: (name: String, isFavourite: Boolean) -> Unit) {
     Card(modifier = Modifier.padding(12.dp)) {
         Column(modifier = Modifier.padding(8.dp)) {
-            AsyncImage(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(300.dp),
-                contentScale = ContentScale.FillHeight,
-                model = breed.imageUrl,
-                contentDescription = null,
-                //placeholder = painterResource(id = R.drawable.baseline_thumb_up_24)
-            )
+            //TODO:Do it later
+//            AsyncImage(
+//                modifier = Modifier
+//                    .fillMaxWidth()
+//                    .height(300.dp),
+//                contentScale = ContentScale.FillHeight,
+//                model = breed.imageUrl,
+//                contentDescription = null,
+//                //placeholder = painterResource(id = R.drawable.baseline_thumb_up_24)
+//            )
+
+            Box(modifier = Modifier.fillMaxWidth().height(300.dp).background(Color.Blue))
             Spacer(modifier = Modifier.height(8.dp))
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Text(
-                    text = breed.name.replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.ROOT) else it.toString() },
+                    text = breed.name.replaceFirstChar { if (it.isLowerCase()) it.titlecase() else it.toString() },
                     fontWeight = FontWeight.Bold,
                     textAlign = TextAlign.Center,
                     modifier = Modifier
@@ -84,8 +88,14 @@ fun BreedItem(modifier: Modifier = Modifier, breed: Breed, setFavourite: (name: 
                     fontStyle = FontStyle.Italic
                 )
 
-                IconToggleButton(checked = breed.isFavourite, onCheckedChange = { setFavourite(breed.name, !breed.isFavourite) }) {
-                    Icon(painter = painterResource(id = if (breed.isFavourite) R.drawable.baseline_thumb_up_24 else R.drawable.baseline_thumb_up_off_alt_24), contentDescription = null)
+                IconToggleButton(
+                    checked = breed.isFavourite,
+                    onCheckedChange = { setFavourite(breed.name, !breed.isFavourite) }) {
+//                    val image =  if (breed.isFavourite) "baseline_thumb_up_24.xml" else "baseline_thumb_up_off_alt_24.xml"
+//                    Image(
+//                        painter = painterResource(image),
+//                        contentDescription = null
+//                    )
                 }
             }
 

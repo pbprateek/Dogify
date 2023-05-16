@@ -10,18 +10,13 @@ import com.example.dogify.useCases.GetBreedsUseCase
 import com.example.dogify.useCases.ToggleFavouriteStateUseCase
 import com.example.dogify.util.DispatcherProvider
 import com.example.dogify.util.DispatcherProviderImpl
-import org.koin.core.context.startKoin
-import org.koin.dsl.KoinAppDeclaration
+import com.example.dogify.vm.MainViewModel
 import org.koin.dsl.module
 
-class KoinModule {
-
-}
-
 private val useCaseModule = module {
-    factory { GetBreedsUseCase() }
-    factory { FetchBreedsUseCase() }
-    factory { ToggleFavouriteStateUseCase() }
+    factory { GetBreedsUseCase(get()) }
+    factory { FetchBreedsUseCase(get()) }
+    factory { ToggleFavouriteStateUseCase(get()) }
 }
 
 
@@ -38,17 +33,14 @@ private val utilityModule = module {
 }
 
 private val repositoryModule = module {
-    factory { BreedRepository(get(),get()) }
+    factory { BreedRepository(get(), get()) }
     factory { BreedRemoteSource(get(), get()) }
-    factory { BreedLocalSource(get(),get()) }
+    factory { BreedLocalSource(get(), get()) }
 
 }
 
-private val sharedModule = listOf(useCaseModule, apiModule, utilityModule, repositoryModule, realm)
-
-fun initKoin(appDeclaration: KoinAppDeclaration = {}) {
-    startKoin {
-        appDeclaration()
-        modules(sharedModule)
-    }
+val viewModelModules = module {
+    factory { MainViewModel(get(), get(), get()) }
 }
+
+val sharedModule = listOf(useCaseModule, apiModule, utilityModule, repositoryModule, realm, viewModelModules)

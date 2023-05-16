@@ -1,13 +1,8 @@
 package com.example.dogify.useCases
 
-import com.example.dogify.model.Breed
 import com.example.dogify.repo.BreedRepository
-import org.koin.core.component.KoinComponent
-import org.koin.core.component.inject
 
-class ToggleFavouriteStateUseCase : KoinComponent {
-
-    private val breedRepository: BreedRepository by inject()
+internal class ToggleFavouriteStateUseCase(private val breedRepository: BreedRepository) {
 
     suspend operator fun invoke(name: String, isFavourite: Boolean) {
         breedRepository.update(name, isFavourite)
