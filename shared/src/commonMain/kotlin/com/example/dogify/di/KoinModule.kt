@@ -10,7 +10,7 @@ import com.example.dogify.useCases.GetBreedsUseCase
 import com.example.dogify.useCases.ToggleFavouriteStateUseCase
 import com.example.dogify.util.DispatcherProvider
 import com.example.dogify.util.DispatcherProviderImpl
-import com.example.dogify.vm.MainViewModel
+import com.example.dogify.view.MainViewModel
 import org.koin.dsl.module
 
 private val useCaseModule = module {

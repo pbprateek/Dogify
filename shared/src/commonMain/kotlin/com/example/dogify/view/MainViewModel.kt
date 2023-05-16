@@ -1,4 +1,4 @@
-package com.example.dogify.vm
+package com.example.dogify.view
 
 import com.example.dogify.model.Breed
 import com.example.dogify.useCases.FetchBreedsUseCase
@@ -19,7 +19,7 @@ internal class MainViewModel(
     val state: StateFlow<DogifyState> = _state
 
     private var breedsCache = emptyList<Breed>()
-    
+
     private val scope = MainScope()
 
 

@@ -5,15 +5,10 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
-import cafe.adriel.voyager.core.model.ScreenModel
-import cafe.adriel.voyager.core.model.rememberScreenModel
 import cafe.adriel.voyager.core.screen.Screen
-import com.example.dogify.vm.MainScreen
-import com.example.dogify.vm.MainViewModel
+import com.example.dogify.view.MainScreen
+import com.example.dogify.view.MainViewModel
 import org.koin.compose.koinInject
-import org.koin.core.parameter.ParametersDefinition
-import org.koin.core.qualifier.Qualifier
-import org.koin.mp.KoinPlatform.getKoin
 
 object HomeScreen : Screen {
     @Composable

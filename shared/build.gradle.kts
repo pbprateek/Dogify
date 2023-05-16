@@ -59,6 +59,9 @@ kotlin {
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-swing:1.7.1")
                 //relm
                 implementation("io.realm.kotlin:library-base:1.8.0")
+
+                //Image Loader
+                api("io.github.qdsfdhvh:image-loader:1.4.2")
             }
         }
 

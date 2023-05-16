@@ -1,4 +1,4 @@
-package com.example.dogify.vm
+package com.example.dogify.view
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -7,14 +7,18 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.example.dogify.model.Breed
+import com.seiko.imageloader.LocalImageLoader
+import com.seiko.imageloader.rememberAsyncImagePainter
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.painterResource
 
@@ -64,18 +68,17 @@ fun MainScreen(
 fun BreedItem(modifier: Modifier = Modifier, breed: Breed, setFavourite: (name: String, isFavourite: Boolean) -> Unit) {
     Card(modifier = Modifier.padding(12.dp)) {
         Column(modifier = Modifier.padding(8.dp)) {
-            //TODO:Do it later
-//            AsyncImage(
-//                modifier = Modifier
-//                    .fillMaxWidth()
-//                    .height(300.dp),
-//                contentScale = ContentScale.FillHeight,
-//                model = breed.imageUrl,
-//                contentDescription = null,
-//                //placeholder = painterResource(id = R.drawable.baseline_thumb_up_24)
-//            )
 
-            Box(modifier = Modifier.fillMaxWidth().height(300.dp).background(Color.Blue))
+            val painter = rememberAsyncImagePainter(breed.imageUrl)
+            Image(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(300.dp),
+                contentScale = ContentScale.FillHeight,
+                painter = painter,
+                contentDescription = null
+            )
+
             Spacer(modifier = Modifier.height(8.dp))
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Text(
