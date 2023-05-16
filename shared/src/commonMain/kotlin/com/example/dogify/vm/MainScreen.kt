@@ -91,11 +91,12 @@ fun BreedItem(modifier: Modifier = Modifier, breed: Breed, setFavourite: (name: 
                 IconToggleButton(
                     checked = breed.isFavourite,
                     onCheckedChange = { setFavourite(breed.name, !breed.isFavourite) }) {
-//                    val image =  if (breed.isFavourite) "baseline_thumb_up_24.xml" else "baseline_thumb_up_off_alt_24.xml"
-//                    Image(
-//                        painter = painterResource(image),
-//                        contentDescription = null
-//                    )
+                    val image =
+                        if (breed.isFavourite) "baseline_thumb_up_24.xml" else "baseline_thumb_up_off_alt_24.xml"
+                    Image(
+                        painter = painterResource(image),
+                        contentDescription = null
+                    )
                 }
             }
 
