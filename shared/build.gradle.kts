@@ -28,7 +28,7 @@ kotlin {
     sourceSets {
 
         val ktorVersion = "2.3.0"
-        val koin_version= "3.4.0"
+        val koin_version = "3.4.0"
         val voyagerVersion = "1.0.0-rc06"
 
         val commonMain by getting {
@@ -37,12 +37,12 @@ kotlin {
                 api(compose.runtime)
                 api(compose.foundation)
                 api(compose.material)
+                api(compose.materialIconsExtended)
                 @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
                 implementation(compose.components.resources)
-
                 //Koin
                 api("io.insert-koin:koin-core:$koin_version")
-                implementation ("io.insert-koin:koin-compose:1.0.1")
+                implementation("io.insert-koin:koin-compose:1.0.1")
 
                 //voyager
                 implementation("cafe.adriel.voyager:voyager-navigator:$voyagerVersion")
@@ -66,7 +66,6 @@ kotlin {
         }
 
 
-
         //Android
         val androidMain by getting {
             dependencies {
@@ -82,8 +81,6 @@ kotlin {
                 implementation("io.ktor:ktor-client-okhttp:$ktorVersion")
             }
         }
-
-
 
 
         //Ios
