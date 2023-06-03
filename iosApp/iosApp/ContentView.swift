@@ -1,16 +1,21 @@
+//
+//  ContentView.swift
+//  iosApp
+//
+//  Created by Prateek Kumar on 25/05/23.
+//
+
 import SwiftUI
 import shared
 
-struct ContentView: View {
-	//let greet = Greeting().greeting()
+struct ContentView: UIViewControllerRepresentable {
+    
+    func updateUIViewController(_ uiViewController: UIViewControllerType, context: Context) {
+        
+    }
+    
+    func makeUIViewController(context: Context) -> some UIViewController {
+        IosMainKt.IosMainApp()
+    }
 
-	var body: some View {
-		Text("greet")
-	}
-}
-
-struct ContentView_Previews: PreviewProvider {
-	static var previews: some View {
-		ContentView()
-	}
 }

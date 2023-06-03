@@ -2,6 +2,7 @@ package com.example.dogify.util
 
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.IO
 
 interface DispatcherProvider {
 

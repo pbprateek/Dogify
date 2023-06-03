@@ -3,6 +3,7 @@ package com.example.dogify.repo
 import com.example.dogify.api.BreedsApi
 import com.example.dogify.util.DispatcherProvider
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.IO
 import kotlinx.coroutines.withContext
 
 internal class BreedRemoteSource(
