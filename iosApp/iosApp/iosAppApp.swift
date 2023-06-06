@@ -11,8 +11,10 @@ import shared
 @main
 struct iosAppApp: App {
     var body: some Scene {
+        
         WindowGroup {
-            ContentView()
+            //This is important to ignore overlapping and all
+            ContentView().ignoresSafeArea(.all)
         }
     }
 }

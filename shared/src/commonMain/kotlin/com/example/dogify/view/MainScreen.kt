@@ -1,6 +1,5 @@
 package com.example.dogify.view
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -9,8 +8,6 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Image
 import androidx.compose.material.icons.filled.ThumbUp
-import androidx.compose.material.icons.filled.TurnLeft
-import androidx.compose.material.icons.filled.TurnRight
 import androidx.compose.material.icons.outlined.ThumbUp
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -24,7 +21,6 @@ import androidx.compose.ui.unit.dp
 import com.example.dogify.model.Breed
 import com.example.dogify.util.AsyncImage
 import org.jetbrains.compose.resources.ExperimentalResourceApi
-import org.jetbrains.compose.resources.painterResource
 
 
 @Composable
@@ -36,42 +32,38 @@ fun MainScreen(
     setFavourite: (name: String, isFavourite: Boolean) -> Unit
 ) {
     Column(modifier = modifier) {
-        TopAppBar() {
-            Box(
-                modifier = Modifier.fillMaxSize()
-            ) {
-                Switch(modifier = Modifier.align(Alignment.CenterEnd), checked = filterApplied, onCheckedChange = {
-                    applyFilter()
-                })
+        TopAppBar(title = {
+            Text(
+                text = "The Dog App"
+            )
+        }, actions = {
+            Switch(modifier = Modifier, checked = filterApplied, onCheckedChange = {
+                applyFilter()
+            })
+        }, backgroundColor = Color.Gray)
 
-                Text(
-                    modifier = Modifier.align(Alignment.Center),
-                    text = "Doggos",
-                    style = MaterialTheme.typography.h4
-                )
+
+        val scrollState = rememberLazyListState()
+        LazyColumn(
+            modifier = modifier
+                .weight(1f)
+                .fillMaxSize(),
+            state = scrollState
+        ) {
+            items(breeds, key = {
+                it.name
+            }) {
+                BreedItem(breed = it, setFavourite = setFavourite)
             }
-
         }
 
-        Box(modifier = Modifier.weight(1f)) {
-            val scrollState = rememberLazyListState()
-            LazyColumn(
-                modifier = modifier
-                    .fillMaxSize(),
-                state = scrollState
-            ) {
-                items(breeds) {
-                    BreedItem(breed = it, setFavourite = setFavourite)
-                }
-            }
-
-            //Desktop only
+        //Desktop only
 //            VerticalScrollbar(
 //                modifier = Modifier.align(Alignment.CenterEnd)
 //                    .fillMaxHeight(),
 //                adapter = rememberScrollbarAdapter(scrollState)
 //            )
-        }
+
     }
 
 
