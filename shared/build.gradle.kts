@@ -5,7 +5,7 @@ plugins {
     id("org.jetbrains.compose")
     id("com.android.library")
     kotlin("plugin.serialization")
-    id("io.realm.kotlin") version "1.8.0"
+    id("io.realm.kotlin") version "1.11.1"
 }
 
 kotlin {
@@ -35,8 +35,8 @@ kotlin {
     sourceSets {
 
         val ktorVersion = "2.3.0"
-        val koin_version = "3.4.1"
-        val voyagerVersion = "1.0.0-rc06"
+        val koin_version = "3.5.0"
+        val voyagerVersion = "1.0.0-rc07"
 
         val commonMain by getting {
             dependencies {
@@ -48,11 +48,11 @@ kotlin {
                 implementation(compose.components.resources)
                 //Koin
                 api("io.insert-koin:koin-core:$koin_version")
-                implementation("io.insert-koin:koin-compose:1.0.3")
+                implementation("io.insert-koin:koin-compose:1.1.0")
 
                 //voyager
                 implementation("cafe.adriel.voyager:voyager-navigator:$voyagerVersion")
-                //implementation("cafe.adriel.voyager:voyager-koin:$voyagerVersion")
+                implementation("cafe.adriel.voyager:voyager-koin:$voyagerVersion")
 
                 //kotr
                 implementation("io.ktor:ktor-client-core:$ktorVersion")
@@ -63,9 +63,9 @@ kotlin {
                 //Searalization
                 implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:1.5.1")
                 //Coroutine
-                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.1")
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
                 //relm
-                implementation("io.realm.kotlin:library-base:1.8.0")
+                implementation("io.realm.kotlin:library-base:1.11.1")
             }
         }
 
@@ -84,7 +84,7 @@ kotlin {
         val desktopMain by getting {
             dependencies {
                 implementation(compose.desktop.currentOs)
-                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-swing:1.7.1")
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-swing:1.7.3")
                 implementation("io.ktor:ktor-client-okhttp:$ktorVersion")
             }
         }
