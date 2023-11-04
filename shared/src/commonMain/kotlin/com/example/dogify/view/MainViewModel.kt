@@ -1,10 +1,11 @@
 package com.example.dogify.view
 
+import cafe.adriel.voyager.core.model.ScreenModel
+import cafe.adriel.voyager.core.model.coroutineScope
 import com.example.dogify.model.Breed
 import com.example.dogify.useCases.FetchBreedsUseCase
 import com.example.dogify.useCases.GetBreedsUseCase
 import com.example.dogify.useCases.ToggleFavouriteStateUseCase
-import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -13,19 +14,17 @@ internal class MainViewModel(
     private val getBreedsUseCase: GetBreedsUseCase,
     private val fetchBreedsUseCase: FetchBreedsUseCase,
     private val onToggleFavouriteStateUseCase: ToggleFavouriteStateUseCase
-) {
+):ScreenModel {
 
     private val _state = MutableStateFlow(DogifyState())
     val state: StateFlow<DogifyState> = _state
 
     private var breedsCache = emptyList<Breed>()
 
-    private val scope = MainScope()
-
 
     init {
         loadData()
-        scope.launch {
+        coroutineScope.launch {
             getBreedsUseCase.invoke().collect {
                 breedsCache = it
                 it.filter { breed ->
@@ -56,7 +55,7 @@ internal class MainViewModel(
 
     private fun loadData() {
         _state.value = _state.value.copy(state = State.LOADING)
-        scope.launch {
+        coroutineScope.launch {
             try {
                 fetchBreedsUseCase.invoke()
             } catch (ex: Exception) {
@@ -66,11 +65,9 @@ internal class MainViewModel(
     }
 
     fun toggleBreedFavourite(name: String, isFavourite: Boolean) {
-        scope.launch {
+        coroutineScope.launch {
             onToggleFavouriteStateUseCase.invoke(name, isFavourite)
         }
 
     }
-
-
 }

@@ -4,11 +4,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.interop.UIKitView
 import androidx.compose.ui.layout.ContentScale
+import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.coroutines.*
 import platform.Foundation.*
 import platform.UIKit.UIImage
 import platform.UIKit.UIImageView
 
+@OptIn(ExperimentalForeignApi::class)
 @Composable
 actual fun AsyncImage(
     modifier: Modifier,

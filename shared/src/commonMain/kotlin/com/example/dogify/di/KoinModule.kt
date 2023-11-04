@@ -39,7 +39,7 @@ private val repositoryModule = module {
 
 }
 
-val viewModelModules = module {
+private val viewModelModules = module {
     factory { MainViewModel(get(), get(), get()) }
 }
 

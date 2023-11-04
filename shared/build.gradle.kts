@@ -9,7 +9,13 @@ plugins {
 }
 
 kotlin {
-    android()
+    androidTarget{
+        compilations.all {
+            kotlinOptions{
+                jvmTarget = "1.8"
+            }
+        }
+    }
 
     jvm("desktop") {
         jvmToolchain(11)
@@ -34,7 +40,6 @@ kotlin {
 
         val commonMain by getting {
             dependencies {
-
                 api(compose.runtime)
                 api(compose.foundation)
                 api(compose.material)
@@ -47,6 +52,7 @@ kotlin {
 
                 //voyager
                 implementation("cafe.adriel.voyager:voyager-navigator:$voyagerVersion")
+                //implementation("cafe.adriel.voyager:voyager-koin:$voyagerVersion")
 
                 //kotr
                 implementation("io.ktor:ktor-client-core:$ktorVersion")
@@ -77,7 +83,7 @@ kotlin {
         //Desktop
         val desktopMain by getting {
             dependencies {
-                //implementation(compose.desktop.common)
+                implementation(compose.desktop.currentOs)
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-swing:1.7.1")
                 implementation("io.ktor:ktor-client-okhttp:$ktorVersion")
             }
@@ -101,13 +107,13 @@ kotlin {
 }
 
 android {
-    compileSdk = 33
+    compileSdk = 34
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
     sourceSets["main"].res.srcDirs("src/androidMain/res")
     sourceSets["main"].resources.srcDirs("src/commonMain/resources")
     defaultConfig {
         minSdk = 21
-        targetSdk = 33
+        targetSdk = 34
     }
 
     compileOptions {
