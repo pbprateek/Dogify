@@ -16,6 +16,7 @@ import io.ktor.client.*
 import io.ktor.client.engine.cio.*
 import io.ktor.client.request.*
 import io.ktor.client.statement.*
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.io.ByteArrayInputStream
@@ -33,7 +34,9 @@ actual fun AsyncImage(
         value = withContext(Dispatchers.IO) {
             try {
                 loadImageBitmap(imageUrl)
-            } catch (e: IOException) {
+            } catch (e: Exception) {
+                if(e is CancellationException)
+                    throw e
                 // instead of printing to console, you can also write this to log,
                 // or show some error placeholder
                 e.printStackTrace()
