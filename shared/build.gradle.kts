@@ -5,7 +5,7 @@ plugins {
     id("org.jetbrains.compose")
     id("com.android.library")
     kotlin("plugin.serialization")
-    id("io.realm.kotlin") version "1.11.1"
+    id("io.realm.kotlin")
 }
 
 kotlin {
