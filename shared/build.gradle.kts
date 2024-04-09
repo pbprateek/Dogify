@@ -34,9 +34,9 @@ kotlin {
 
     sourceSets {
 
-        val ktorVersion = "2.3.0"
-        val koin_version = "3.5.0"
-        val voyagerVersion = "1.0.0-rc07"
+        val ktorVersion = "2.3.10"
+        val koin_version = "3.5.4"
+        val voyagerVersion = "1.1.0-alpha04"
 
         val commonMain by getting {
             dependencies {
@@ -47,8 +47,8 @@ kotlin {
                 @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
                 implementation(compose.components.resources)
                 //Koin
-                api("io.insert-koin:koin-core:$koin_version")
-                implementation("io.insert-koin:koin-compose:1.1.0")
+                //api("io.insert-koin:koin-core:$koin_version")
+                implementation("io.insert-koin:koin-compose:1.2.0-alpha3")
 
                 //voyager
                 implementation("cafe.adriel.voyager:voyager-navigator:$voyagerVersion")
@@ -75,7 +75,7 @@ kotlin {
             dependencies {
                 implementation("io.ktor:ktor-client-okhttp:$ktorVersion")
                 //Coil for android
-                implementation("io.coil-kt:coil-compose:2.4.0")
+                implementation("io.coil-kt:coil-compose:2.6.0")
             }
         }
 

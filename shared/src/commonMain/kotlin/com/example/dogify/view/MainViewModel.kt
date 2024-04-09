@@ -1,7 +1,7 @@
 package com.example.dogify.view
 
 import cafe.adriel.voyager.core.model.ScreenModel
-import cafe.adriel.voyager.core.model.coroutineScope
+import cafe.adriel.voyager.core.model.screenModelScope
 import com.example.dogify.model.Breed
 import com.example.dogify.useCases.FetchBreedsUseCase
 import com.example.dogify.useCases.GetBreedsUseCase
@@ -24,7 +24,7 @@ internal class MainViewModel(
 
     init {
         loadData()
-        coroutineScope.launch {
+        screenModelScope.launch {
             getBreedsUseCase.invoke().collect {
                 breedsCache = it
                 it.filter { breed ->
@@ -55,7 +55,7 @@ internal class MainViewModel(
 
     private fun loadData() {
         _state.value = _state.value.copy(state = State.LOADING)
-        coroutineScope.launch {
+        screenModelScope.launch {
             try {
                 fetchBreedsUseCase.invoke()
             } catch (ex: Exception) {
@@ -65,7 +65,7 @@ internal class MainViewModel(
     }
 
     fun toggleBreedFavourite(name: String, isFavourite: Boolean) {
-        coroutineScope.launch {
+        screenModelScope.launch {
             onToggleFavouriteStateUseCase.invoke(name, isFavourite)
         }
 
